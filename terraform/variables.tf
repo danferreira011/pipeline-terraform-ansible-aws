@@ -21,7 +21,7 @@ variable "ec2_ami" {
 variable "ssh_key_name" {
   description = "Name of the SSH key pair to access the EC2 instance"
   type        = string
-  default     = "${{secrets.SSH_PRIVATE_KEY}}"
+
 }
 
 variable "ec2_count" {

@@ -35,7 +35,8 @@ jobs:
             - name: Terraform Plan
               working-directory: terraform
               run: |
-                terraform plan
+                terraform plan \
+                -var="ssh_key_name=${{ secrets.SSH_PRIVATE_KEY }}"
 
             - name: Show files
               run: ls -la
