@@ -1,6 +1,15 @@
 name: Pipeline CI/CD - Terraform / Ansible
 on:
     workflow_dispatch:
+        inputs:
+            action:
+                description: "Escolher ação: "
+                required: true
+                default: "apply"
+                type: choice
+                options:
+                    - apply
+                    - destroy
 jobs:
     cria-vm:
         name: Provisionamento de VMs
@@ -30,18 +39,26 @@ jobs:
                 terraform init
 
             - name: Terraform Validate
+              if: github.event.inputs.action == 'apply'
               working-directory: terraform              
               run: |
                 terraform validate
 
             - name: Terraform Plan
+              if: github.event.inputs.action == 'apply'
               working-directory: terraform
               run: |
                 terraform plan -out=tfplan
             
             - name: Terraform Apply
+              if: github.event.inputs.action == 'apply'
               working-directory: terraform 
               run: terraform apply -auto-approve tfplan
+
+            - name: Terraform Destroy 
+              if: github.event.inputs.action == 'destroy' 
+              working-directory: terraform 
+              run: terraform destroy -auto-approve
 
             - name: Show Terraform Outputs
               working-directory: terraform
