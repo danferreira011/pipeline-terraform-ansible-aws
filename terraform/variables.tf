@@ -23,3 +23,9 @@ variable "ssh_key_name" {
   type        = string
   default     = "hotmail-account"
 }
+
+variable "ec2_count" {
+  description = "Number of EC2 instances to create"
+  type        = number
+  default     = 1
+}
