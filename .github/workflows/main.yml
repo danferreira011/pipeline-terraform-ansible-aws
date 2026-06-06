@@ -13,11 +13,11 @@ jobs:
                 aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                 aws_region: us-east-1
                 enable_ecr_login: true 
-                           
+
             - name: Checkout Terraform Repo
               uses: actions/checkout@v6
               with:
-                repository: https://github.dev/danferreira011/pipeline-terraform-ansible-aws
+                repository: danferreira011/pipeline-terraform-ansible-aws
                 path: terraform
             
             - name: Terraform Comands
