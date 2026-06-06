@@ -70,3 +70,8 @@ jobs:
             - name: Show terraform folder
               run: ls -la terraform
 
+            - name: Gerar Inventário Ansible
+              working-directory: terraform
+              run: | 
+                terraform output -json > tf_output.json
+
