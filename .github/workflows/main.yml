@@ -27,7 +27,10 @@ jobs:
                 repository: danferreira011/pipeline-terraform-ansible-aws
                 path: terraform
             
-            - name: Terraform Comands
+            - name: Terraform init
               run: |
                 terraform init
+            - name: Terraform Validate
+              run: |
+                terraform validate
 
