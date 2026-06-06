@@ -42,6 +42,10 @@ jobs:
               working-directory: terraform 
               run: terraform apply -auto-approve tfplan
 
+            - name: Show Terraform Outputs
+              working-directory: terraform
+              run: terraform output
+
             - name: Show files
               run: ls -la
 
