@@ -13,11 +13,7 @@ jobs:
                 aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                 aws_region: us-east-1
                 enable_ecr_login: true 
-            - name: Create PEM file
-              run: |
-                echo "${{secrets.SSH_PRIVATE_KEY }}" hotmail-account.pem
-                chmod 400 hotmail-account.pem
-
+                           
             - name: Checkout Terraform Repo
               uses: actions/checkout@v6
               with:
