@@ -15,11 +15,11 @@ jobs:
                 enable_ecr_login: true 
             - name: Create PEM file
               run: |
-                echo "${{secrets. SSH_PRIVATE_KEY }}" hotmail-account.pem
+                echo "${{secrets.SSH_PRIVATE_KEY }}" hotmail-account.pem
                 chmod 400 hotmail-account.pem
 
             - name: Checkout Terraform Repo
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
               with:
                 repository: https://github.dev/danferreira011/pipeline-terraform-ansible-aws
                 path: terraform
