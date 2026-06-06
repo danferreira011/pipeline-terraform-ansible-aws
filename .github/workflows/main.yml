@@ -6,22 +6,28 @@ jobs:
         name: Provisionamento de VMs
         runs-on: ubuntu-latest
         steps:
-            - name: Login to AWS with access keys
-              uses: KoalaOps/login-aws@v1
+            - name: Setup Terraform
+              uses: autero1/action-terraform@v3
               with:
-                aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                aws_region: us-east-1
-                enable_ecr_login: true 
+                terraform-version: 1.2.8
+            - name: Interact with Terraform
+              run: terraform --version
+            # - name: Login to AWS with access keys
+            #   uses: KoalaOps/login-aws@v1
+            #   with:
+            #     aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            #     aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            #     aws_region: us-east-1
+            #     enable_ecr_login: true 
 
-            - name: Checkout Terraform Repo
-              uses: actions/checkout@v6
-              with:
-                repository: danferreira011/pipeline-terraform-ansible-aws
-                path: terraform
+            # - name: Checkout Terraform Repo
+            #   uses: actions/checkout@v6
+            #   with:
+            #     repository: danferreira011/pipeline-terraform-ansible-aws
+            #     path: terraform
             
-            - name: Terraform Comands
-              run: |
-                terraform init
-                terraform validate
-                terraform plan
+            # - name: Terraform Comands
+            #   run: |
+            #     terraform init
+            #     terraform validate
+            #     terraform plan
