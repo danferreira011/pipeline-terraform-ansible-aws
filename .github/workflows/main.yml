@@ -1,1 +1,31 @@
-name: Pipeline CI/CD Terraform Ansible
+name: Pipeline CI/CD - Terraform / Ansible
+on:
+    workflow_dispatch:
+jobs:
+    cria-vm:
+        name: Provisionamento de VMs
+        runs-on: ubuntu-latest
+        steps:
+            - name: Login to AWS with access keys
+              uses: KoalaOps/login-aws@v1
+              with:
+                aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws_region: us-east-1
+                enable_ecr_login: true 
+            - name: Create PEM file
+              run: |
+                echo "${{secrets. SSH_PRIVATE_KEY }}" hotmail-account.pem
+                chmod 400 hotmail-account.pem
+
+            - name: Checkout Terraform Repo
+              uses: actions/checkout@v4
+              with:
+                repository: https://github.dev/danferreira011/pipeline-terraform-ansible-aws
+                path: terraform
+            
+            - name: Terraform Comands
+              run: |
+                terraform init
+                terraform validate
+                terraform plan
