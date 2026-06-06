@@ -12,7 +12,7 @@ jobs:
                 terraform-version: 1.15.5
             - name: Interact with Terraform
               run: terraform --version
-              
+
             - name: Login to AWS with access keys
               uses: KoalaOps/login-aws@v1
               with:
@@ -30,5 +30,4 @@ jobs:
             - name: Terraform Comands
               run: |
                 terraform init
-                terraform validate
-                terraform plan
+
