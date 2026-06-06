@@ -24,19 +24,19 @@ jobs:
             - name: Checkout Terraform Repo
               uses: actions/checkout@v4              
             
-            - name: Terraform init
-              working-directory: terraform
+            - name: Terraform init              
               run: |
                 terraform init
-            - name: Terraform Validate
-              working-directory: terraform
+
+            - name: Terraform Validate              
               run: |
                 terraform validate
 
-            - name: Terraform Validate
+            - name: Terraform Plan
               working-directory: terraform
               run: |
                 terraform plan
+
             - name: Show files
               run: ls -la
 
