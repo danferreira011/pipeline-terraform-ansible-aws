@@ -9,7 +9,7 @@ jobs:
             - name: Setup Terraform
               uses: autero1/action-terraform@v3
               with:
-                terraform-version: 1.15.5
+                terraform-version: 1.12.2
             - name: Interact with Terraform
               run: terraform --version
 
@@ -22,19 +22,24 @@ jobs:
                 enable_ecr_login: true 
 
             - name: Checkout Terraform Repo
-              uses: actions/checkout@v6
-              with:
-                repository: danferreira011/pipeline-terraform-ansible-aws
-                path: terraform
+              uses: actions/checkout@v4              
             
             - name: Terraform init
+              working-directory: terraform
               run: |
                 terraform init
             - name: Terraform Validate
+              working-directory: terraform
               run: |
                 terraform validate
 
             - name: Terraform Validate
+              working-directory: terraform
               run: |
                 terraform plan
+            - name: Show files
+              run: ls -la
+
+            - name: Show terraform folder
+              run: ls -la terraform
 
