@@ -1,6 +1,7 @@
 ---
 - name: Install and configure Nginx
   hosts: webserver
+  gather_facts: false
   become: true
 
   tasks:
