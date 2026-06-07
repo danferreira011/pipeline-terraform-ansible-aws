@@ -1,4 +1,4 @@
-name: Pipeline CI/CD - Terraform / Ansible
+name: Automação - Terraform / Ansible
 on:
     workflow_dispatch:
         inputs:
