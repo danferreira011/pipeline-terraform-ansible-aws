@@ -132,3 +132,17 @@ jobs:
 
                     echo "Nginx did not start"
                     exit 1
+            - name: Show application URL
+              working-directory: terraform
+              run: |
+                echo ""
+                echo "===================================="
+                echo "Deployment successful!"
+                echo "Application URL(s):"
+                echo "===================================="
+
+                terraform output -json | \
+                  jq -r '.ec2_ips_named.value[]' | \
+                  while read ip; do
+                    echo "http://$ip"
+                  done
