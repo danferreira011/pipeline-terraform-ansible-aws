@@ -79,8 +79,7 @@ jobs:
 
                 echo "[webserver]" > ../ansible/inventory/hosts
 
-                jq -r '.ec2_ips_named.value[]' tf_output.json | while read ip; do
-                 echo "$ip ansible_user=ec2-ubuntu" >> ../ansible/inventory/hosts done
+                jq -r '.ec2_ips_named.value[]' tf_output.json | while read ip; do echo "$ip ansible_user=ec2-ubuntu" >> ../ansible/inventory/hosts done
 
                 echo "Generated inventory:" 
                 cat ../ansible/inventory/hosts
