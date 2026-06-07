@@ -61,16 +61,20 @@ jobs:
               run: terraform destroy -auto-approve
 
             - name: Show Terraform Outputs
+              if: github.event.inputs.action == 'apply'
               working-directory: terraform
               run: terraform output
 
             - name: Show files
+              if: github.event.inputs.action == 'apply'
               run: ls -la
 
             - name: Show terraform folder
+              if: github.event.inputs.action == 'apply'
               run: ls -la terraform
 
             - name: Gerar Inventário Ansible
+              if: github.event.inputs.action == 'apply'
               working-directory: terraform
               run: | 
                 terraform output -json > tf_output.json
@@ -87,6 +91,7 @@ jobs:
                 cat ../ansible/inventory/hosts
                             
             - name: Configurar chave SSH
+              if: github.event.inputs.action == 'apply'
               run: |
                 mkdir -p ~/.ssh
 
@@ -95,23 +100,27 @@ jobs:
                 chmod 600 ~/.ssh/id_rsa
 
             - name: Instalar Ansible
+              if: github.event.inputs.action == 'apply'
               run: |
                 sudo apt update
                 sudo apt install -y ansible
 
             - name: Testar conectividade Ansible
+              if: github.event.inputs.action == 'apply'
               run: |
                 ansible webserver \
                   -i ansible/inventory/hosts \
                   -m ping
 
             - name: Instalar Nginx
+              if: github.event.inputs.action == 'apply'
               run: |
                 ansible-playbook \
                   -i ansible/inventory/hosts \
                   ansible/playbooks/nginx.yaml
                   
             - name: Testar Nginx
+              if: github.event.inputs.action == 'apply'
               working-directory: terraform
               run: |
                 IP=$(terraform output -json | jq -r '.ec2_ips_named.value[]')
@@ -133,6 +142,7 @@ jobs:
                     echo "Nginx did not start"
                     exit 1
             - name: Show application URL
+              if: github.event.inputs.action == 'apply'
               working-directory: terraform
               run: |
                 echo ""
