@@ -94,8 +94,41 @@ jobs:
 
                 chmod 600 ~/.ssh/id_rsa
 
+            - name: Instalar Ansible
+              run: |
+                sudo apt update
+                sudo apt install -y ansible
+
             - name: Testar conectividade Ansible
               run: |
                 ansible webserver \
                   -i ansible/inventory/hosts \
                   -m ping
+
+            - name: Instalar Nginx
+              run: |
+                ansible-playbook \
+                  -i ansible/inventory/hosts \
+                  ansible/playbooks/nginx.yaml
+                  
+            - name: Testar Nginx
+              working-directory: terraform
+              run: |
+                IP=$(terraform output -json | jq -r '.ec2_ips_named.value[]')
+
+                echo "Testing http://$IP"
+
+                curl -I http://$IP
+
+                for i in {1..10}; do
+                  if curl -I http://$IP; then
+                    echo "Nginx is up!"
+                    exit 0
+                  fi
+
+                echo "Waiting for nginx..."
+                  sleep 5
+                done
+
+                    echo "Nginx did not start"
+                    exit 1
