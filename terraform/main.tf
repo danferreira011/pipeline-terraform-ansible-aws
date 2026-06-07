@@ -8,11 +8,11 @@ terraform {
 }
 
 resource "aws_instance" "web_server" {
-  ami           = var.ec2_ami
-  instance_type = "t3.micro"
-  key_name      = var.ssh_key_name
+  ami                    = var.ec2_ami
+  instance_type          = "t3.micro"
+  key_name               = var.ssh_key_name
   vpc_security_group_ids = [aws_security_group.sg_terraform.id]
-  count = var.ec2_count
+  count                  = var.ec2_count
 
   tags = {
     Name = "${var.ec2_name}-${count.index + 1}"
@@ -25,7 +25,7 @@ resource "aws_security_group" "sg_terraform" {
   name        = "sg_terraform"
   description = "Allow trafic on ports 22 and 80"
   vpc_id      = data.aws_vpc.default.id
-  
+
 
   ingress {
     from_port   = 22
