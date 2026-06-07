@@ -5,20 +5,31 @@
 
   tasks:
     - name: Update apt cache
-      apt:
+      ansible.builtin.apt:
         update_cache: true
 
     - name: Install nginx
-      apt:
+      ansible.builtin.apt:
         name: nginx
         state: present
 
     - name: Enable nginx service
-      service:
+      ansible.builtin.service:
         name: nginx
         enabled: true
 
     - name: Start nginx service
-      service:
+      ansible.builtin.service:
         name: nginx
         state: started
+    
+    - name: Deploy custom page 
+      ansible.builtin.template: 
+      src: ../templates/index.html.j2 
+      dest: /var/www/html/index.html 
+      mode: '0644'
+
+    - name: Restart nginx 
+      ansible.builtin.service: 
+      name: nginx 
+      state: restarted
