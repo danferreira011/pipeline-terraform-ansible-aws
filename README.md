@@ -1,11 +1,9 @@
-````md
 # 🚀 Automated Infrastructure Deployment with Terraform + Ansible + GitHub Actions (AWS)
 
 Projeto DevOps focado em **Infrastructure as Code (IaC)** e **automação de provisionamento e configuração de servidores**, utilizando **Terraform**, **Ansible**, **GitHub Actions** e **AWS**.
 
 O objetivo deste projeto é automatizar todo o fluxo de deploy:
 
-```txt
 GitHub Actions
         ↓
 Terraform
@@ -23,7 +21,6 @@ Nginx Installation
 Custom Website Deployment
         ↓
 Automatic URL Output
-```
 
 ---
 
@@ -37,7 +34,6 @@ Ao final da execução da pipeline, uma página customizada é implantada no **N
 
 # 🏗️ Architecture
 
-```txt
 ┌────────────────────┐
 │   GitHub Actions   │
 │   CI/CD Pipeline   │
@@ -72,7 +68,6 @@ Ao final da execução da pipeline, uma página customizada é implantada no **N
 │       Nginx        │
 │ Custom HTML Page   │
 └────────────────────┘
-```
 
 ---
 
@@ -107,7 +102,6 @@ Ao final da execução da pipeline, uma página customizada é implantada no **N
 
 # 📂 Project Structure
 
-```txt
 .
 ├── .github/
 │   └── workflows/
@@ -131,7 +125,6 @@ Ao final da execução da pipeline, uma página customizada é implantada no **N
 │       └── index.html.j2
 │
 └── README.md
-```
 
 ---
 
@@ -141,27 +134,19 @@ The pipeline performs the following steps:
 
 ### 1. Terraform Initialization
 
-```bash
 terraform init
-```
 
 ### 2. Infrastructure Validation
 
-```bash
 terraform validate
-```
 
 ### 3. Infrastructure Planning
 
-```bash
 terraform plan
-```
 
 ### 4. AWS Infrastructure Provisioning
 
-```bash
 terraform apply
-```
 
 ### 5. Dynamic Inventory Generation
 
@@ -169,10 +154,8 @@ Terraform outputs are converted automatically into an Ansible inventory file.
 
 Example generated inventory:
 
-```ini
 [webserver]
 54.xxx.xxx.xxx ansible_user=ubuntu
-```
 
 ### 6. SSH Key Configuration
 
@@ -180,9 +163,7 @@ SSH private key is securely retrieved from **GitHub Secrets**.
 
 ### 7. Connectivity Validation
 
-```bash
 ansible webserver -m ping
-```
 
 ### 8. Nginx Installation
 
@@ -192,17 +173,13 @@ Automated using Ansible playbooks.
 
 Custom HTML page is automatically deployed to:
 
-```txt
 /var/www/html/index.html
-```
 
 ### 10. Application Validation
 
 The workflow validates the deployment by performing:
 
-```bash
 curl -I http://<public-ip>
-```
 
 ---
 
@@ -220,7 +197,6 @@ To prevent state corruption during concurrent executions.
 
 Example:
 
-```hcl
 terraform {
   backend "s3" {
     bucket         = "your-bucket-name"
@@ -230,7 +206,6 @@ terraform {
     encrypt        = true
   }
 }
-```
 
 ---
 
@@ -250,14 +225,12 @@ Configure the following repository secrets:
 
 At the end of the pipeline:
 
-```txt
 ====================================
 Deployment successful!
 Application URL(s):
 ====================================
 
 http://54.xxx.xxx.xxx
-```
 
 And a custom Nginx page becomes available.
 
@@ -291,30 +264,13 @@ During development, several real-world DevOps challenges were addressed:
 
 ---
 
-# 📸 Screenshots
-
-## GitHub Actions Pipeline
-
-_Add your screenshot here_
-
-## Custom Nginx Page
-
-_Add your screenshot here_
-
----
-
 # 👨‍💻 Author
 
 **Danilo Ferreira**
 
 DevOps | Cloud | Infrastructure Automation | CI/CD
-
-LinkedIn: _add your profile_  
-GitHub: _add your GitHub_
-
 ---
 
 # ⭐ If you liked this project
 
 Feel free to star the repository and connect with me.
-````
