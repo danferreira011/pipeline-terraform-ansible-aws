@@ -31,8 +31,9 @@ Este projeto provisiona automaticamente uma ou mais instâncias EC2 na AWS utili
 Ao final da execução da pipeline, uma página customizada é implantada no **Nginx** e a URL da aplicação é exibida automaticamente no log do workflow.
 
 ---
-
+```txt
 # 🏗️ Architecture
+
 
 ┌────────────────────┐
 │   GitHub Actions   │
@@ -68,6 +69,7 @@ Ao final da execução da pipeline, uma página customizada é implantada no **N
 │       Nginx        │
 │ Custom HTML Page   │
 └────────────────────┘
+```
 
 ---
 
@@ -101,8 +103,7 @@ Ao final da execução da pipeline, uma página customizada é implantada no **N
 ---
 
 # 📂 Project Structure
-
-.
+```
 ├── .github/
 │   └── workflows/
 │       └── main.yml
@@ -125,6 +126,7 @@ Ao final da execução da pipeline, uma página customizada é implantada no **N
 │       └── index.html.j2
 │
 └── README.md
+```
 
 ---
 
@@ -134,28 +136,35 @@ The pipeline performs the following steps:
 
 ### 1. Terraform Initialization
 
+```bash
 terraform init
+```
 
 ### 2. Infrastructure Validation
 
+```bash
 terraform validate
+```
 
 ### 3. Infrastructure Planning
 
+```bash
 terraform plan
-
+```
 ### 4. AWS Infrastructure Provisioning
 
+```bash
 terraform apply
-
+```
 ### 5. Dynamic Inventory Generation
 
 Terraform outputs are converted automatically into an Ansible inventory file.
-
+```txt
 Example generated inventory:
 
 [webserver]
 54.xxx.xxx.xxx ansible_user=ubuntu
+```
 
 ### 6. SSH Key Configuration
 
@@ -172,14 +181,16 @@ Automated using Ansible playbooks.
 ### 9. Custom Web Page Deployment
 
 Custom HTML page is automatically deployed to:
-
+```
 /var/www/html/index.html
+```
 
 ### 10. Application Validation
 
 The workflow validates the deployment by performing:
-
+```
 curl -I http://<public-ip>
+```
 
 ---
 
@@ -196,7 +207,7 @@ For persistent Terraform state storage.
 To prevent state corruption during concurrent executions.
 
 Example:
-
+```hcl
 terraform {
   backend "s3" {
     bucket         = "your-bucket-name"
@@ -206,7 +217,7 @@ terraform {
     encrypt        = true
   }
 }
-
+```
 ---
 
 # 🔑 Required GitHub Secrets
@@ -224,7 +235,7 @@ Configure the following repository secrets:
 # 🖥️ Example Deployment Result
 
 At the end of the pipeline:
-
+```txt
 ====================================
 Deployment successful!
 Application URL(s):
@@ -233,7 +244,7 @@ Application URL(s):
 http://54.xxx.xxx.xxx
 
 And a custom Nginx page becomes available.
-
+```
 ---
 
 # 🧠 Technical Challenges Solved
